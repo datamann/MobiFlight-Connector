@@ -49,7 +49,8 @@ namespace MobiFlight
         InputShiftRegister,  // 12
         MultiplexerDriver,   // 13  Not a proper device, but index required for update events
         InputMultiplexer, 	 // 14
-        Stepper              // 15
+        Stepper,             // 15
+        LcdSPIDisplay        // 16
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -88,7 +89,8 @@ namespace MobiFlight
             InputShiftRegisterChange, // 29
             InputMultiplexerChange, // 30
             SetStepperSpeedAccel,   // 31
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            DebugPrint =0xFF,         // 255 for Debug Print from Firmware to log/terminal
+            SetLcdSPIDisplay        // 32
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -222,6 +224,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
         Dictionary<String, MobiFlightInputShiftRegister> inputShiftRegisters = new Dictionary<string, MobiFlightInputShiftRegister>();
         Dictionary<String, MobiFlightInputMultiplexer> inputMultiplexers = new Dictionary<string, MobiFlightInputMultiplexer>();
+        Dictionary<String, MobiFlightLcdSPIDisplay> lcdSPIDisplays = new Dictionary<string, MobiFlightLcdSPIDisplay>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -811,6 +814,19 @@ namespace MobiFlight
             lcdDisplays[address].Display(value);
             return true;
         }
+        public bool SetLcdSPIDisplay(string address, string value)
+        {
+            String key = "LCD_" + address;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            lcdSPIDisplays[address].Display(value);
+            return true;
+        }
 
         /// <summary>
         /// 
@@ -1000,6 +1016,11 @@ namespace MobiFlight
                 result.Add(shiftRegister);
             }
 
+            foreach (MobiFlightLcdSPIDisplay lcdSPIDisplay in lcdSPIDisplays.Values)
+            {
+                result.Add(lcdSPIDisplay);
+            }
+
             return result;
         }
 
@@ -1017,6 +1038,7 @@ namespace MobiFlight
             result[MobiFlightAnalogInput.TYPE] = analogInputs.Count;
             result[MobiFlightInputShiftRegister.TYPE] = inputShiftRegisters.Count;
             result[MobiFlightInputMultiplexer.TYPE] = inputMultiplexers.Count;
+            result[MobiFlightLcdSPIDisplay.TYPE] = lcdSPIDisplays.Count;
 
             return result;
         }
@@ -1055,6 +1077,12 @@ namespace MobiFlight
                     result.Add(lcdDisplay);
             }
 
+            foreach (MobiFlightLcdSPIDisplay lcdSPIDisplay in lcdSPIDisplays.Values)
+            {
+                if (lcdSPIDisplay.Name == name)
+                    result.Add(lcdSPIDisplay);
+            }
+
             foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
             {
                 if (shiftRegister.Name == name)
@@ -1077,6 +1105,7 @@ namespace MobiFlight
             if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
             if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
+            if (lcdSPIDisplays.Count > 0) result.Add(DeviceType.LcdSPIDisplay);
             if (shiftRegisters.Count > 0) result.Add(DeviceType.ShiftRegister);
 
             return result;
@@ -1137,6 +1166,9 @@ namespace MobiFlight
                     case DeviceType.Stepper:
                     case DeviceType.ShiftRegister:
                     case DeviceType.LcdDisplay:
+                        result.Add(dev);
+                        break;
+                    case DeviceType.LcdSPIDisplay:
                         result.Add(dev);
                         break;
                 }
@@ -1290,6 +1322,20 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.LcdDisplay:
+                        if (ExcludeI2CDevices)
+                        {
+                            continue;
+                        }
+
+                        // Statically add correct I2C pins
+                        foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
+                        {
+                            if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
+                            usedPins.Add(Convert.ToByte(pin.Pin));
+                        }
+                        break;
+
+                    case DeviceType.LcdSPIDisplay:
                         if (ExcludeI2CDevices)
                         {
                             continue;

@@ -37,7 +37,8 @@ namespace MobiFlight
 		public OutputConfig.Pin     Pin                         { get; set; }
 		public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
-		public List<string>         BcdPins                     { get; set; }
+        public OutputConfig.LcdSPIDisplay LcdSPIDisplay         { get; set; }
+        public List<string>         BcdPins                     { get; set; }
         public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
@@ -78,6 +79,7 @@ namespace MobiFlight
             Pin = new OutputConfig.Pin();
             LedModule = new OutputConfig.LedModule();
             LcdDisplay = new OutputConfig.LcdDisplay();
+            LcdSPIDisplay = new OutputConfig.LcdSPIDisplay();
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
@@ -347,10 +349,10 @@ namespace MobiFlight
             {
                 Stepper.WriteXml(writer);
             }
-            else if (DisplayType == MobiFlightLcdDisplay.TYPE)
+            else if (DisplayType == MobiFlightLcdSPIDisplay.TYPE)
             {
-                if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                LcdDisplay.WriteXml(writer);
+                if (LcdSPIDisplay == null) LcdSPIDisplay = new OutputConfig.LcdSPIDisplay();
+                LcdSPIDisplay.WriteXml(writer);
             }
             else if (DisplayType == MobiFlightShiftRegister.TYPE)
             {

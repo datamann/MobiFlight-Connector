@@ -2,7 +2,7 @@
 
 namespace MobiFlight.UI.Panels
 {
-    partial class LCDDisplayPanel
+    partial class LCDSPIDisplayPanel
     {
         /// <summary> 
         /// Erforderliche Designervariable.

@@ -739,6 +739,50 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// set the display module
+        /// </summary>
+        /// <param name="serial"></param>
+        /// <param name="LcdSPIConfig"></param>
+        /// <param name="value"></param>
+        /// <param name="replacements"></param>
+        public void setLcdSPIDisplay(string serial, OutputConfig.LcdSPIDisplay LcdSPIConfig, string value, List<ConfigRefValue> replacements)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            if (LcdSPIConfig.MOSI == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                // apply the replacement in our string
+                MobiFlightLcdSPIDisplay display = null;
+                foreach (IConnectedDevice dev in module.GetConnectedDevices(LcdSPIConfig.MOSI))
+                {
+                    if (dev.Type == DeviceType.LcdSPIDisplay)
+                    {
+                        display = dev as MobiFlightLcdSPIDisplay;
+                    }
+                }
+                if (display == null) throw new Exception("LCD Display not found");
+                String sValue = display.Apply(LcdSPIConfig, value, replacements);
+
+                module.SetLcdDisplay(LcdSPIConfig.MOSI, sValue);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
+            }
+        }
+
         public void setShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
         {
             if (serial == null)

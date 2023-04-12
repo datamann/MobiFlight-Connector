@@ -12,5 +12,6 @@ namespace MobiFlight
         bool SetServo(string name, int value, int min, int max, byte maxRotationPercent);
         bool SetStepper(string stepper, int value, int inputRevolutionSteps);
         bool SetLcdDisplay(string address, string value);
+        bool SetLcdSPIDisplay(string mosi, string value);
     }
 }

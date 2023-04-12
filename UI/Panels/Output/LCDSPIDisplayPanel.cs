@@ -11,7 +11,7 @@ using MobiFlight.UI.Panels.Config;
 
 namespace MobiFlight.UI.Panels
 {
-    public partial class LCDDisplayPanel : UserControl
+    public partial class LCDSPIDisplayPanel : UserControl
     {
         DataView dv;
         int Cols = 16;
@@ -19,7 +19,7 @@ namespace MobiFlight.UI.Panels
         static byte MAX_CONFIG_REFS = 6;
         static string[] CONFIG_REFS_PLACEHOLDER = { "#", "§", "&", "?", "@", "^", "%" };
 
-        public LCDDisplayPanel()
+        public LCDSPIDisplayPanel()
         {
             InitializeComponent();
         }
@@ -38,16 +38,17 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             // preselect display stuff
-            if (config.LcdDisplay.Address != null)
+            // TODO: Remove
+            /*if (config.LcdSPIDisplay.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdDisplay.Address.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdSPIDisplay.Address.ToString()))
                 {
                     // TODO: provide error message
                     Log.Instance.log("Exception on selecting item in LCD address ComboBox.", LogSeverity.Error);
                 }
-            }
-            if (config.LcdDisplay.Lines.Count > 0)
-                lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
+            }*/
+            if (config.LcdSPIDisplay.Lines.Count > 0)
+                lcdDisplayTextBox.Lines = config.LcdSPIDisplay.Lines.ToArray();
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -55,12 +56,14 @@ namespace MobiFlight.UI.Panels
             // check if this is currently selected and properly initialized
             if (DisplayComboBox.SelectedValue == null) return config;
 
-            config.LcdDisplay.Address = DisplayComboBox.SelectedValue.ToString().Split(',').ElementAt(0);
+            // TODO: Remove
+            //config.LcdSPIDisplay.Address = DisplayComboBox.SelectedValue.ToString().Split(',').ElementAt(0);
+            config.LcdSPIDisplay.MOSI = DisplayComboBox.SelectedValue.ToString().Split(',').ElementAt(0);
 
-            config.LcdDisplay.Lines.Clear();
+            config.LcdSPIDisplay.Lines.Clear();
             foreach (String line in lcdDisplayTextBox.Lines)
             {
-                config.LcdDisplay.Lines.Add(line);
+                config.LcdSPIDisplay.Lines.Add(line);
             }
             return config;
         }

@@ -38,7 +38,6 @@
             this.ledSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +72,6 @@
             this.addLedModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addServoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addStepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.addEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +81,7 @@
             this.addInputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.IgnoredComPortsLabel = new System.Windows.Forms.Label();
@@ -91,7 +90,10 @@
             this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addLcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LcdSPIDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addLCDSPIDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -150,6 +152,7 @@
             this.servoToolStripMenuItem,
             this.stepperToolStripMenuItem,
             this.LcdDisplayToolStripMenuItem,
+            this.LcdSPIDisplayToolStripMenuItem,
             this.ShiftRegisterToolStripMenuItem,
             this.toolStripMenuItem4,
             this.buttonToolStripMenuItem,
@@ -189,6 +192,12 @@
             this.LcdDisplayToolStripMenuItem.Name = "LcdDisplayToolStripMenuItem";
             resources.ApplyResources(this.LcdDisplayToolStripMenuItem, "LcdDisplayToolStripMenuItem");
             this.LcdDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // LcdSPIDisplayToolStripMenuItem
+            // 
+            this.LcdSPIDisplayToolStripMenuItem.Name = "LcdSPIDisplayToolStripMenuItem";
+            resources.ApplyResources(this.LcdSPIDisplayToolStripMenuItem, "LcdSPIDisplayToolStripMenuItem");
+            this.LcdSPIDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // ShiftRegisterToolStripMenuItem
             // 
@@ -376,6 +385,7 @@
             this.addServoToolStripMenuItem,
             this.addStepperToolStripMenuItem,
             this.addLcdDisplayToolStripMenuItem,
+            this.addLCDSPIDisplayToolStripMenuItem,
             this.addShiftRegisterToolStripMenuItem,
             this.toolStripSeparator3,
             this.addEncoderToolStripMenuItem,
@@ -416,6 +426,12 @@
             this.addLcdDisplayToolStripMenuItem.Name = "addLcdDisplayToolStripMenuItem";
             resources.ApplyResources(this.addLcdDisplayToolStripMenuItem, "addLcdDisplayToolStripMenuItem");
             this.addLcdDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addLCDSPIDisplayToolStripMenuItem
+            // 
+            this.addLCDSPIDisplayToolStripMenuItem.Name = "addLCDSPIDisplayToolStripMenuItem";
+            resources.ApplyResources(this.addLCDSPIDisplayToolStripMenuItem, "addLCDSPIDisplayToolStripMenuItem");
+            this.addLCDSPIDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // addShiftRegisterToolStripMenuItem
             // 
@@ -470,6 +486,12 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
+            // UpdateFirmwareToolStripButton
+            // 
+            this.UpdateFirmwareToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.UpdateFirmwareToolStripButton, "UpdateFirmwareToolStripButton");
+            this.UpdateFirmwareToolStripButton.Name = "UpdateFirmwareToolStripButton";
+            // 
             // mobiflightSettingsLabel
             // 
             resources.ApplyResources(this.mobiflightSettingsLabel, "mobiflightSettingsLabel");
@@ -513,12 +535,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // UpdateFirmwareToolStripButton
-            // 
-            this.UpdateFirmwareToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.UpdateFirmwareToolStripButton, "UpdateFirmwareToolStripButton");
-            this.UpdateFirmwareToolStripButton.Name = "UpdateFirmwareToolStripButton";
-            // 
             // MobiFlightPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -559,7 +575,6 @@
         private System.Windows.Forms.ToolStripMenuItem addServoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addLedModuleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addOutputToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addLcdDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addShiftRegisterToolStripMenuItem;        
         private System.Windows.Forms.ToolStripButton removeDeviceToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -570,7 +585,10 @@
         private System.Windows.Forms.ToolStripMenuItem ledSegmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem servoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stepperToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addLcdDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LcdSPIDisplayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addLCDSPIDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShiftRegisterToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem buttonToolStripMenuItem;

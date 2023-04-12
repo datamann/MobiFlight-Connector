@@ -9,29 +9,37 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
-    public partial class MFLcddDisplayPanel : UserControl
+    public partial class MFLcddSPIDisplayPanel : UserControl
     {
         /// <summary>
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
 
-        private MobiFlight.Config.LcdDisplay config;
+        private MobiFlight.Config.LcdSPIDisplay config;
         bool initialized = false;
 
-        public MFLcddDisplayPanel()
+        public MFLcddSPIDisplayPanel()
         {
             InitializeComponent();
         }
 
-        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins): this()
+        public MFLcddSPIDisplayPanel(MobiFlight.Config.LcdSPIDisplay config, List<MobiFlightPin> Pins) : this()
         {
             //// TODO: Complete member initialization
             this.config = config;
             NameTextBox.Text = config.Name;
-            AddressComboBox.SelectedItem = "0x" + config.Address.ToString("X2");
+            // TODO: Remove
+            //AddressComboBox.SelectedItem = "0x" + config.Address.ToString("X2");
             ColTextBox.Text = config.Cols.ToString();
             LinesTextBox.Text = config.Lines.ToString();
+            HeightTextBox1.Text = config.tftheight.ToString();
+            WidthTextBox1.Text = config.tftwidth.ToString();
+            MOSITextBox1.Text = config.mosi.ToString();
+            ChipSelectTextBox1.Text = config.chipselect.ToString();
+            DataCommandTextBox1.Text = config.datacommand.ToString();
+            ResetTextBox1.Text = config.reset.ToString();
+
             ////setValues();
 
             initialized = true;
@@ -48,7 +56,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void setValues()
         {
             config.Name     = NameTextBox.Text;
-            config.Address  = Byte.Parse(AddressComboBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
+            // TODO: Remove
+            //config.Address  = Byte.Parse(AddressComboBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
             byte Cols;
             if (Byte.TryParse(ColTextBox.Text, out Cols)) {
                 config.Cols = Cols;
@@ -56,6 +65,36 @@ namespace MobiFlight.UI.Panels.Settings.Device
             byte Lines;
             if (Byte.TryParse(LinesTextBox.Text, out Lines)) { 
                 config.Lines = Lines;
+            }
+            byte tftheight;
+            if (Byte.TryParse(HeightTextBox1.Text, out tftheight))
+            {
+                config.tftheight = tftheight;
+            }
+            byte tftwidth;
+            if (Byte.TryParse(WidthTextBox1.Text, out tftwidth))
+            {
+                config.tftwidth = tftwidth;
+            }
+            byte mosi;
+            if (Byte.TryParse(MOSITextBox1.Text, out mosi))
+            {
+                config.mosi = mosi;
+            }
+            byte chipselect;
+            if (Byte.TryParse(ChipSelectTextBox1.Text, out chipselect))
+            {
+                config.chipselect = chipselect;
+            }
+            byte datacommand;
+            if (Byte.TryParse(DataCommandTextBox1.Text, out datacommand))
+            {
+                config.datacommand = datacommand;
+            }
+            byte reset;
+            if (Byte.TryParse(ResetTextBox1.Text, out reset))
+            {
+                config.reset = reset;
             }
         }
 
@@ -98,14 +137,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     "");
         }
 
-        private void AddressComboBox_SelectedValueChanged(object sender, EventArgs e)
+        // TODO: Remove
+        /*private void AddressComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             value_Changed(sender, e);
-        }
-
-        private void MFLcddDisplayPanel_Load(object sender, EventArgs e)
-        {
-
-        }
+        }*/
     }
 }

@@ -152,6 +152,7 @@
             this.Controls.Add(this.NameGroupBox);
             this.Controls.Add(this.DiksplaySettingsGroupBox);
             this.Name = "MFLcddDisplayPanel";
+            this.Load += new System.EventHandler(this.MFLcddDisplayPanel_Load);
             this.DiksplaySettingsGroupBox.ResumeLayout(false);
             this.DiksplaySettingsGroupBox.PerformLayout();
             this.NameGroupBox.ResumeLayout(false);

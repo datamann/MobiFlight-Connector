@@ -15,7 +15,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void ApplyTest()
         {
-            MobiFlightLcdDisplay o = new MobiFlightLcdDisplay();
+            MobiFlightLcdISPDisplay o = new MobiFlightLcdDisplay();
             OutputConfig.LcdDisplay lcdConfig = new OutputConfig.LcdDisplay();
             String value = "12345";
             String result = "";

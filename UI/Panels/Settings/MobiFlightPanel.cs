@@ -70,6 +70,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add(DeviceType.LcdDisplay.ToString(), MobiFlight.Properties.Resources.led7);
+            mfTreeViewImageList.Images.Add(DeviceType.LcdSPIDisplay.ToString(), MobiFlight.Properties.Resources.led7);
             //mfTreeViewImageList.Images.Add(DeviceType.MultiplexerDriver.ToString(), MobiFlight.Properties.Resources.mux_driver);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
@@ -420,7 +421,12 @@ namespace MobiFlight.UI.Panels.Settings
                             panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetPins());
                             (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-                        
+
+                        case DeviceType.LcdSPIDisplay:
+                            panel = new MFLcddSPIDisplayPanel(dev as MobiFlight.Config.LcdSPIDisplay, module.GetPins());
+                            (panel as MFLcddSPIDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                         case DeviceType.ShiftRegister:
                             panel = new MFShiftRegisterPanel(dev as MobiFlight.Config.ShiftRegister, module.GetPins());
                             (panel as MFShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -437,9 +443,9 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
-                        // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
+                            // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
 
-                        // output
+                            // output
                     }
                 }
 
@@ -648,6 +654,46 @@ namespace MobiFlight.UI.Panels.Settings
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
                         break;
+
+                    case "LcdSPIDisplayToolStripMenuItem":
+                    case "addLCDSPIDisplayToolStripMenuItem":
+                        // TODO: Remove
+                        /*if (statistics[MobiFlightLcdSPIDisplay.TYPE] == tempModule.Board.ModuleLimits.MaxLcdI2C)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdSPIDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
+                        }
+
+                        // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
+                        // so throw an error.
+                        var availableI2Cpins1 = tempModule.Board.Pins.FindAll(x => x.isI2C);
+
+                        if (!(availableI2Cpins1?.Any() ?? false))
+                        {
+                            throw new I2CPinsNotDefinedException(MobiFlightLcdSPIDisplay.TYPE);
+                        }
+                        */
+
+                        // Fix for issue #900. Check for any I2C pins that might already be in use by
+                        // other modules configured for the device.
+                        var pinsInUse1 = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
+
+                        // TODO: Remove
+                        /*
+                        // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
+                        // in use since that's sufficient to throw an error and tell the user what to do. Trying to
+                        // write an error message that works for one or more in use I2C pins is way more trouble
+                        // than it's worth.
+                        var firstInUseI2CPin1 = availableI2Cpins1.Find(x => pinsInUse1?.Contains(x) ?? false);
+
+                        if (firstInUseI2CPin1 != null)
+                        {
+                            throw new I2CPinInUseException(MobiFlightLcdSPIDisplay.TYPE, firstInUseI2CPin1);
+                        }
+                        */
+
+                        cfgItem = new MobiFlight.Config.LcdSPIDisplay();
+                        break;
+
 
                     case "ShiftRegisterToolStripMenuItem":
                     case "addShiftRegisterToolStripMenuItem":

@@ -38,6 +38,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new Panels.DisplayLedDisplayPanel();
         Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
         Panels.LCDDisplayPanel displayLcdDisplayPanel = new Panels.LCDDisplayPanel();
+        Panels.LCDSPIDisplayPanel displayLcdSPIDisplayPanel = new Panels.LCDSPIDisplayPanel();
         Panels.ServoPanel servoPanel = new Panels.ServoPanel();
         Panels.StepperPanel stepperPanel = new Panels.StepperPanel();
         Panels.DisplayShiftRegisterPanel displayShiftRegisterPanel = new Panels.DisplayShiftRegisterPanel();
@@ -155,6 +156,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         displayLcdDisplayPanel.syncFromConfig(config);
                         break;
 
+                    case MobiFlightLcdSPIDisplay.TYPE:
+                        displayLcdSPIDisplayPanel.syncFromConfig(config);
+                        break;
+
                     case MobiFlightShiftRegister.TYPE:
                         displayShiftRegisterPanel.SyncFromConfig(config);
                         break;
@@ -223,7 +228,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         servoPanel.syncToConfig(config);
                         break;
 
-                    case MobiFlightLcdDisplay.TYPE:
+                    case MobiFlightLcdSPIDisplay.TYPE:
                         displayLcdDisplayPanel.syncToConfig(config);
                         break;
 
@@ -281,7 +286,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdSPIDisplay.TYPE, Label = MobiFlightLcdSPIDisplay.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
                 else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
@@ -323,7 +328,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                                 break;
 
                             case DeviceType.LcdDisplay:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdSPIDisplay.TYPE, Label = MobiFlightLcdSPIDisplay.TYPE });
                                 break;
 
                             case DeviceType.ShiftRegister:
@@ -513,6 +518,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> servos = new List<ListItem>();
             List<ListItem> stepper = new List<ListItem>();
             List<ListItem> lcdDisplays = new List<ListItem>();
+            List<ListItem> lcdSPIDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
 
 
@@ -540,6 +546,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         int Cols = (device as MobiFlightLcdDisplay).Cols;
                         int Lines = (device as MobiFlightLcdDisplay).Lines;
                         lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
+                        break;
+
+                    case DeviceType.LcdSPIDisplay:
+                        int Cols1 = (device as MobiFlightLcdSPIDisplay).Cols;
+                        int Lines1 = (device as MobiFlightLcdSPIDisplay).Lines;
+                        lcdSPIDisplays.Add(new ListItem() { Value = device.Name + "," + Cols1 + "," + Lines1, Label = device.Name });
                         break;
 
                     case DeviceType.ShiftRegister:

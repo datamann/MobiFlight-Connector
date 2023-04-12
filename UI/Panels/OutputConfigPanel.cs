@@ -570,8 +570,8 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightOutput.TYPE:
                                 row["OutputName"] = cfgItem.Pin.DisplayPin;
                                 break;
-                            case MobiFlightLcdDisplay.TYPE:
-                                row["OutputName"] = cfgItem.LcdDisplay.Address;
+                            case MobiFlightLcdSPIDisplay.TYPE:
+                                row["OutputName"] = cfgItem.LcdSPIDisplay.MOSI;
                                 break;
                             case MobiFlightServo.TYPE:
                                 row["OutputName"] = cfgItem.Servo.Address;

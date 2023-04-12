@@ -20,6 +20,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Servo))]
         [XmlElement(typeof(Stepper))]
         [XmlElement(typeof(LcdDisplay))]
+        [XmlElement(typeof(LcdSPIDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
         [XmlElement(typeof(InputMultiplexer))]
@@ -134,6 +135,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.LcdDisplay:
                             currentItem = new MobiFlight.Config.LcdDisplay();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.LcdSPIDisplay:
+                            currentItem = new MobiFlight.Config.LcdSPIDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

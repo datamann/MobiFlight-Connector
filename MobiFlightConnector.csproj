@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build"
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -246,6 +245,7 @@
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
+    <Compile Include="MobiFlight\Config\LCDSPIDisplay.cs" />
     <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
@@ -270,6 +270,7 @@
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightInputMultiplexer.cs" />
+    <Compile Include="MobiFlight\MobiFlightLcdSPIDisplay.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightInputShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\LcdSPIDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
@@ -459,6 +461,12 @@
     <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.Designer.cs">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Device\MFLcdSPIDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFLcdSPIDisplayPanel.Designer.cs">
+      <DependentUpon>MFLcdSPIDisplayPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -512,6 +520,12 @@
     </Compile>
     <Compile Include="UI\Panels\OutputWizard\DisplayPanel.Designer.cs">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\LCDSPIDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\LCDSPIDisplayPanel.Designer.cs">
+      <DependentUpon>LCDSPIDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
       <SubType>UserControl</SubType>
@@ -1124,6 +1138,9 @@
     <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.resx">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFLcdSPIDisplayPanel.resx">
+      <DependentUpon>MFLcdSPIDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.de.resx">
       <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
